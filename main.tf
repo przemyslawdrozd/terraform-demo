@@ -82,22 +82,26 @@ resource "aws_eip" "my-eip" {
   depends_on                = [ aws_internet_gateway.my-gw ]
 }
 
-# resource "aws_instance" "my-server" {
-#   ami               = "ami-06dd92ecc74fdfb36"
-#   instance_type     = "t2.micro"
-#   availability_zone = "eu-central-1a"
-#   key_name          = "main-key"
+resource "aws_instance" "my-server" {
+  ami               = "ami-06dd92ecc74fdfb36"
+  instance_type     = "t2.micro"
+  availability_zone = "eu-central-1a"
+  key_name          = "main-key"
 
-#   network_interface {
-#     network_interface_id = aws_network_interface.web-server-nic.id
-#     device_index         = 0
-#   }
+  network_interface {
+    network_interface_id = aws_network_interface.web-server-nic.id
+    device_index         = 0
+  }
 
-#   user_data = <<-EOF
-#               #!/bin/bash
-#               sudo apt update -y
-#               sudo apt install apache2 -y
-#               sudo systemctl start apache2
-#               sudo bash -c 'echo yout web server > /var/www/html/index.html
-#               EOF
-# }
+  user_data = <<-EOF
+              #!/bin/bash
+              sudo apt update -y
+              sudo apt install apache2 -y
+              sudo systemctl start apache2
+              sudo bash -c 'echo yout web server > /var/www/html/index.html
+              EOF
+}
+
+output "server_public_ip" {
+  value = aws_eip.my-eip.public_ip
+}
