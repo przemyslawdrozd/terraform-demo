@@ -1,6 +1,13 @@
 provider "aws" {
   region = "eu-central-1"
 }
+
+variable "subnet_prefix" {
+  description = "cidr for the subnet"
+  type = string
+  # default = "0.0.0.0/0"
+}
+
 resource "aws_vpc" "my-vpc" {
   cidr_block = "10.0.0.0/16"
 }
@@ -13,7 +20,7 @@ resource "aws_route_table" "my-route-table" {
   vpc_id = aws_vpc.my-vpc.id
 
   route {
-    cidr_block = "0.0.0.0/0"
+    cidr_block = var.subnet_prefix
     gateway_id = aws_internet_gateway.my-gw.id
   }
   route {
