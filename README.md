@@ -2,6 +2,7 @@
 This README provides an overview of the Terraform project responsible for provisioning and managing AWS resources using the AWS provider. The infrastructure created includes the following AWS resources:
 
 # Diagram
+![terraform-diagram](https://github.com/przemyslawdrozd/terraform-demo/assets/31375100/474f5f88-be62-48ed-9bed-5a82709b962c)
 
 ## terraform list
 1. aws_vpc.my-vpc: Virtual Private Cloud.
